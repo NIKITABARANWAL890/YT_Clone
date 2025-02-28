@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="history.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-bars"></i>
+            <img src="images/logo.png" alt="Youtube Logo" id="yt_logo">
+        </div>
+        <div class="nav-search-bar">
+        <div class="navSearch">
+        <input type="text" name="search-text" oninput="handleSearch(event)" id="searchBox" placeholder="Search">
+        <button onclick="handleSearchButton()" id="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div class="search-mic">
+        <i class="fa-solid fa-microphone"></i>
+        </div>
+        </div>
+        <div class="nav-side">
+            <div class="nav-create">
+                <i class="fa-solid fa-plus"></i>
+                <button>Create</button>
+            </div>
+            <i class="fa-solid fa-bell"></i>
+            <div class="user-profile">
+                N
+            </div>
+        </div>
+    </header>
+
+    <aside style="padding:1rem;">
+        <div class="first-div">
+            <div class="home"><a href="index.html"><i class="fa-solid fa-house"></i>Home</a></div>
+            <div class="shorts"><img src="images/shorts.png" alt="">Shorts</div>
+            <div class="subscription"><img src="images/subscription.png" alt="">Subscription</div>
+        </div>
+        <div class="second-div">
+            <div class="you">You <i class="fa-solid fa-angle-right"></i></div>
+            <div class="history"><img src="images/history.png" alt=""><a href="history.html">
+                History
+            </a></div>
+            <div class="playlists"><img src="images/playlists.png" alt="">Playlists</div>
+            <div class="yourVideos"><img src="images/yourVideos.png" alt="">Your Videos</div>
+            <div class="watchLater"><img src="images/watchLater.png" alt="">Watch Later</div>
+            <div class="likedVideos"><img src="images/liked.png" alt="">Liked Videos</div>
+            <div class="downloads"><img src="images/download.png" alt="">Downloads</div>
+        </div>
+        <div class="third-div">
+            <h4>Subscription</h4>
+        </div>
+        <div class="four-div">
+            <h4>Explore</h4>
+            <div class="trending"><img src="images/trending.png" alt="">Trending</div>
+            <div class="shopping"><img src="images/shopping.png" alt="">Shopping</div>
+            <div class="music"><img src="images/music.png" alt="">Music</div>
+            <div class="films"><img src="images/films.png" alt="">Films</div>
+            <div class="live"><img src="images/live.png" alt="">Live</div>
+            <div class="gaming"><img src="images/gaming.png" alt="">Gaming</div>
+            <div class="news"><img src="images/news.png" alt="">News</div>
+            <div class="sport"><img src="images/sports.png" alt="">Sport</div>
+            <div class="courses"><img src="images/courses.png" alt="">Courses</div>
+            <div class="fashion"><img src="images/fashion.png" alt="">Fashion</div>
+            <div class="podcasts"><img src="images/podcasts.png" alt="">Podcasts</div>
+        </div>
+        <div class="five-div">
+            <h4>More from Youtube</h4>
+            <div class="youtube-premium"><img src="images/ytPremium.png" alt="">YouTube Premium</div>
+            <div class="youtube-studio"><img src="images/ytStudio.png" alt="">YouTube Studio</div>
+            <div class="youtube-music"><img src="images/music.png" alt="">YouTube Music</div>
+            <div class="youtube-kids"><img src="images/ytKids.png" alt="">YouTube Kinds</div>
+        </div>
+    </aside>
+
+    <div class="main-content">
+    <h1>Watch History</h1>
+    <div class="history-container">
+        <div class="history-content">
+            <h2>Today</h2>
+            <div class="history-content-header">
+                <h3><img src="images/yt_shorts_history.png" alt="">Shorts</h3>
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </div>
+        <!-- <a href="index.html">HOME</a> -->
+        <div id="iframe-container"></div>
+        </div>
+        <div class="search-history">
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search watch history">
+            </div>
+                <p class="manage-history"><i class="fa-solid fa-trash"></i>Clear all watch history</p>
+                <p class="manage-history"><i class="fa-solid fa-pause"></i>Pause watch history</p>
+                <p class="manage-history"><i class="fa-solid fa-gear"></i>Manage all history</p>
+                <p>Comments</p>
+                <p>Posts</p>
+                <p>Live Chat</p>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        const historyText = localStorage.getItem("yt_history") || "[]";
+        let historyArray = JSON.parse(historyText).reverse();
+
+        const root = document.getElementById('iframe-container');
+
+        function renderVideos() {
+            root.innerHTML = ""; // Clear existing content
+            historyArray.forEach((videoId, index) => {
+                const newCard = document.createElement('div');
+                newCard.innerHTML = `
+                <div class="history-cards">
+                    <iframe 
+                        width="448" 
+                        height="252" 
+                        src="https://www.youtube.com/embed/${videoId}" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen >
+                    </iframe>
+                    <div class="history-cards-content">
+                        <div class="history-cards-header">
+                        <h3>Title</h3>
+                        <button onclick="deleteVideo(${index})" id='delete-btn'><i class="fa-solid fa-xmark"></i></button>
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                        <p>Paragraph</p>
+                        <p>Inner data</p>
+                    </div>
+                    </div>
+                `;
+                root.appendChild(newCard);
+            });
+        }
+
+        function deleteVideo(index) {
+            historyArray.splice(index, 1); // Remove video from arra
+            localStorage.setItem("yt_history", JSON.stringify(historyArray.reverse())); // Update localStorage
+            renderVideos(); // Re-render list
+        }
+        renderVideos(); // Initial render
+    </script>
+</body>
+</html>

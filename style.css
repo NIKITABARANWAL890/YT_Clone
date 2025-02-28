@@ -1,0 +1,275 @@
+:root{
+    --main-color:#0F0F0F;
+    --gray-color: #222222;
+    --font-color:#E7E7E7;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: grid;
+    /* grid-template-rows: 6.25rem auto; */
+    grid-template-columns: 15rem 1fr;
+    background-color: #0F0F0F;
+    color: var(--font-color);
+}
+
+i{
+    cursor: pointer;
+}
+
+/************************* Nav *********************/
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    height: 3.5rem;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    padding: 0 1.25rem;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: var(--main-color);
+}
+
+#yt_logo{
+    width: 8.5rem;
+}
+
+.nav-search-bar{
+    width: 45%;
+    display: flex;
+    gap: 1rem;
+    margin-left: 1rem;
+}
+
+.navSearch{
+    width: 90%;
+    height: 2.5rem;
+    border-radius: 20px;
+    margin-right: 0;
+    border: 2px solid var(--gray-color);
+    position: relative;
+}
+
+#searchBox{
+    border-radius: inherit;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    padding: 0.25rem 1rem;
+    outline: none;
+    margin-left: 0;
+    background-color: transparent;
+}
+
+#search-button{
+    height: 100%;
+    position: absolute;
+    right: 0;
+    width: 4.5rem;
+    border-radius: inherit;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border: none;
+    background-color: #222222;
+    color: var(--font-color);
+
+    i{
+        font-size: 1.25rem;
+    }
+}
+
+.search-mic{
+    padding: 0.5rem 0.9rem;
+    border-radius: 50%;
+    font-size: 1rem;
+    background-color: #222222;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+
+    i{
+        font-size: 1.25rem;
+        margin-top: 6px;
+    }
+}
+
+.nav-side{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0 1rem;
+    /* width: 20%; */
+}
+
+.nav-create{
+    padding: 0.6rem 1rem;
+    border-radius: 20px;
+    /* height: 2.5rem; */
+    background-color: var(--gray-color);
+    display: flex;
+    align-items: center;
+
+    button{
+        background-color: transparent;
+        border: none;
+        color: var(--font-color);
+        font-size: 1rem;
+        margin-left: 10px;
+    }
+}
+
+.user-profile{
+    padding: 0.5rem 0.8rem;
+    border-radius: 50%;
+    background-color: purple;
+    margin-left: 1rem;
+}
+
+
+
+
+
+/***************** Aside ***************/
+
+aside {
+    background-color: transparent;
+    margin-top: 0;
+    padding: 1rem;
+}
+
+.first-div, .second-div, .third-div, .four-div, .five-div{
+    width: 100%;
+    padding: 1rem 0.7rem;
+    border-bottom: 2px solid var(--gray-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.05rem;
+
+    img{
+        width: 1.75rem;
+    }
+
+    h4{
+        margin: 0.5rem 0;
+    }
+}
+
+.first-div>div, .second-div>div, .four-div>div, .third-div>div, .five-div>div{
+    gap: 1rem;
+    margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+
+
+
+
+/***************** Main *******************/
+
+main {
+    /* background-color: blueviolet; */
+
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: repeat(auto-fit, 24.5rem);
+    grid-auto-rows: auto;
+    gap: 2rem;
+    padding: 0rem 1rem;
+}
+
+.music-type{
+    width: 100%;
+    margin: 0.85rem 0 0.25rem 0;
+    height: 3.5rem;
+    background-color: var(--main-color);
+    position: sticky;
+    top: 3.5rem;
+
+
+    ul{
+        list-style: none;
+
+        li{
+            padding: 0.5rem 1rem;
+            background-color: var(--gray-color);
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+    }
+}
+
+.music-lists{
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.8rem;
+}
+
+.card {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    margin: 0.25rem 0;
+
+    img{
+        border-radius: 10px;
+    }
+}
+
+.card-contents{
+    display: flex;
+    align-items: flex-start;
+    margin: 0.75rem 0.25rem;
+    gap: 1rem;
+
+    i{
+        margin-top: 0;
+    }
+}
+
+.card-logo{
+    width: 100%;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    background-color: var(--gray-color);
+
+}
+
+.card-content{
+    width: 80%;
+
+    h6{
+        font-size: 1rem;
+        font-weight: 100;
+        color: rgb(171, 171, 171);
+        margin-top: 0.5rem;
+    }
+}
+
