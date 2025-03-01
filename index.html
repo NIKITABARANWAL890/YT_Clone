@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css" integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -17,8 +18,11 @@
         </div>
         <div class="nav-search-bar">
         <div class="navSearch">
-        <input type="text" name="search-text" oninput="handleSearch(event)" id="searchBox" placeholder="Search">
-        <button onclick="handleSearchButton()" id="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <input type="text" name="search-text" id="searchBox" placeholder="Search" autocomplete="off">
+        <div id="cross-search"><i class="fa-solid fa-xmark"></i></div>
+        <button id="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <div id="search-history">
+        </div>
         </div>
         <div class="search-mic">
         <i class="fa-solid fa-microphone"></i>
@@ -82,7 +86,7 @@
     </aside>
 
     <main-content>
-        <div class="music-type">
+        <!-- <div class="music-type"> -->
             <ul class="music-lists">
                 <li>All</li>
                 <li>Music</li>
@@ -97,7 +101,7 @@
                 <li>Tamil</li>
                 <li>Sports</li>
             </ul>
-        </div>
+        <!-- </div> -->
         <main>
 
         </main>

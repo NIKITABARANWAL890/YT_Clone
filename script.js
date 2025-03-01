@@ -5866,7 +5866,10 @@ const dummyData = [
     },
 ];
 
+// localStorage.setItem("dummyData", JSON.stringify(dummyData));
+
 const root = document.querySelector("main");
+const searchData = [];
 
 const showUI = (list) => {
     root.innerHTML = "";
@@ -5904,38 +5907,85 @@ window.onload = () => {
     showUI(dummyData);
 };
 
-
-
 const handleHover = (e, idx) => {
     // const lastImage = dummyData[idx].videoThumbnails.pop();
     // e.target.src = lastImage.url;
 };
 
-const searchBox = document.querySelector("#searchBox");
+document.addEventListener("DOMContentLoaded", function () {
+    const searchBox = document.querySelector("#searchBox");
+    const searchHistoryDiv = document.querySelector("#search-history");
+    const searchButton = document.querySelector("#search-button");
+    const clearSearch = document.querySelector("#cross-search");
+    let searchData = [];
 
-if(searchBox.value==""){
-    
-}
+    // Function to show search history
+    function showSearchHistory() {
+        searchHistoryDiv.innerHTML = ""; // Clear previous content
+        clearSearch.style.display='block';
+        if (searchData.length === 0) {
+            searchHistoryDiv.innerHTML = "<p>No recent searches</p>";
+        } else {
+            searchData.forEach((searchText, index) => {
+                const newSearch = document.createElement("div");
+                newSearch.classList.add("new-search");
+                newSearch.innerHTML = `
+                    <i class="ri-history-line"></i>
+                    <p>${searchText}</p>
+                    <i class="fa-solid fa-xmark" onclick="removeSearch(${index})"></i>
+                `;
+                searchHistoryDiv.appendChild(newSearch);
+            });
+        }
+        searchHistoryDiv.style.display = "block"; // Show search history
+    }
 
-function handleSearch(event) {
-    const query = event.target.value.toLowerCase();
-    console.log(query);
-    filterAndDisplay(query);
-}
+    // Function to remove search from history
+    window.removeSearch = function (index) {
+        searchData.splice(index, 1);
+        showSearchHistory(); // Refresh the UI
+    };
 
-function handleSearchButton() {
-    const query = searchBox.value.toLowerCase();
-    filterAndDisplay(query);
-}
+    // Function to filter and display search results
+    function filterAndDisplay(query) {
+        const filteredData = dummyData.filter(video =>
+            video.title.toLowerCase().trim().includes(query) ||
+            video.author.toLowerCase().trim().includes(query)
+        );
+        console.log(filteredData); // For debugging
+        showUI(filteredData);
+    }
 
-function filterAndDisplay(query) {
-    const filteredData = dummyData.filter(video =>
-        video.title.toLowerCase().trim().includes(query) ||
-        video.author.toLowerCase().trim().includes(query)
-    );
-    console.log(filteredData);
-    showUI(filteredData);
-};
+    // Function to handle search button click
+    function handleSearchButton() {
+        const query = searchBox.value.trim().toLowerCase();
+        if (query !== "") {
+            if (!searchData.includes(query)) {
+                searchData.push(query);
+            }
+            filterAndDisplay(query); // Call the filtering function
+        }
+        searchData.reverse();
+        showSearchHistory();
+    }
 
+    // Attach event listeners
+    searchBox.addEventListener("focus", showSearchHistory);
+    searchBox.addEventListener("blur", function () {
+        setTimeout(() => {
+            searchHistoryDiv.style.display = "none";
+            clearSearch.style.display='none';
+        }, 200); 
+    });
+
+    searchButton.addEventListener("click", handleSearchButton);
+
+    clearSearch.addEventListener("click", () => {
+        console.log("clear search");
+        searchBox.value = "";  // Clears input
+        searchBox.focus();  // Keeps focus on search input
+        // document.querySelector("#search-history").style.display = "none"; // Hide search history
+    });
+});
 
 

@@ -15,10 +15,13 @@
             <img src="images/logo.png" alt="Youtube Logo" id="yt_logo">
         </div>
         <div class="nav-search-bar">
-        <div class="navSearch">
-        <input type="text" name="search-text" oninput="handleSearch(event)" id="searchBox" placeholder="Search">
-        <button onclick="handleSearchButton()" id="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
+            <div class="navSearch">
+                <input type="text" name="search-text" id="searchBox" placeholder="Search" autocomplete="off">
+                <div id="cross-search"><i class="fa-solid fa-xmark"></i></div>
+                <button id="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <div id="search-history">
+                </div>
+                </div>
         <div class="search-mic">
         <i class="fa-solid fa-microphone"></i>
         </div>
@@ -95,9 +98,31 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" placeholder="Search watch history">
             </div>
-                <p class="manage-history"><i class="fa-solid fa-trash"></i>Clear all watch history</p>
-                <p class="manage-history"><i class="fa-solid fa-pause"></i>Pause watch history</p>
-                <p class="manage-history"><i class="fa-solid fa-gear"></i>Manage all history</p>
+                <p class="manage-history" id="clear-all-history"><i class="fa-solid fa-trash"></i>Clear all watch history
+                <div class="clear-history-pop">
+                    <p>Clear Watch History?</p>
+                    <p>User Name(e-mail)</p>
+                    <p>Your YouTube watch history will be cleared from all YouTube apps on all devices</p>
+                    <p>Your video recommendations will be reset, but may still be influenced by activity on other Google products. To learn more, visit <a href="">My Activity</a>.</p>
+                    <div class="clear-history-btns">
+                        <button id="cancel-history-btn">Cancel</button>
+                        <button id="clear-history-btn">Clear Watch History</button>
+                    </div>
+                </div></p>
+                <p class="manage-history" id="pause-all-history"><i class="fa-solid fa-pause"></i>Pause watch history
+                    <div class="pause-history-pop">
+                        <p>Pause Watch History?</p>
+                        <p>User Name(e-mail)</p>
+                        <p>
+                            Pausing YouTube Watch History can make it harder to find videos that you have watched and you may see fewer recommendations for new videos in YouTube and other Google products.</p>
+                        <p>
+                            Remember, pausing this setting doesn't delete any previous activity but you can view, edit and delete your private <a href="">YouTube Watch History</a> data at any time. When you pause and clear your watch history, YouTube features that rely on history to personalise your experience are disabled.</p>
+                        <div class="clear-history-btns">
+                            <button id="cancel-pause-btn">Cancel</button>
+                            <button id="clear-pause-btn">Clear Watch History</button>
+                        </div>
+                    </div></p>
+                <p class="manage-history" id="manage-all-history"><i class="fa-solid fa-gear"></i>Manage all history</p>
                 <p>Comments</p>
                 <p>Posts</p>
                 <p>Live Chat</p>
@@ -106,48 +131,91 @@
     </div>
 
     <script>
-        const historyText = localStorage.getItem("yt_history") || "[]";
-        let historyArray = JSON.parse(historyText).reverse();
 
-        const root = document.getElementById('iframe-container');
 
-        function renderVideos() {
-            root.innerHTML = ""; // Clear existing content
-            historyArray.forEach((videoId, index) => {
-                const newCard = document.createElement('div');
-                newCard.innerHTML = `
-                <div class="history-cards">
-                    <iframe 
-                        width="448" 
-                        height="252" 
-                        src="https://www.youtube.com/embed/${videoId}" 
-                        title="YouTube video player" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin" 
-                        allowfullscreen >
-                    </iframe>
-                    <div class="history-cards-content">
-                        <div class="history-cards-header">
-                        <h3>Title</h3>
-                        <button onclick="deleteVideo(${index})" id='delete-btn'><i class="fa-solid fa-xmark"></i></button>
+const historyText = localStorage.getItem("yt_history") || "[]";
+let historyArray = JSON.parse(historyText).reverse();
+
+const root1 = document.getElementById('iframe-container');
+
+function renderVideos() {
+    root1.innerHTML = ""; // Clear existing content
+
+    historyArray.forEach((videoId, index) => {
+        console.log(videoId);
+        const newCard = document.createElement('div');
+        newCard.innerHTML = `
+            <div class="history-cards">
+                <iframe 
+                    width="448" 
+                    height="252" 
+                    src="https://www.youtube.com/embed/${videoId}" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen >
+                </iframe>
+                <div class="history-cards-content">
+                    <div class="history-cards-header">
+                        <h3>undefined</h3>
+                        <button onclick="deleteVideo(${index})" id='delete-btn'>
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
                         <i class="fa-solid fa-ellipsis-vertical"></i>
-                        </div>
-                        <p>Paragraph</p>
-                        <p>Inner data</p>
                     </div>
-                    </div>
-                `;
-                root.appendChild(newCard);
-            });
-        }
+                    <p>undefined</p>
+                    <p>Inner data</p>
+                </div>
+            </div>
+        `;
+        root1.appendChild(newCard);
+    });
+}
 
-        function deleteVideo(index) {
-            historyArray.splice(index, 1); // Remove video from arra
-            localStorage.setItem("yt_history", JSON.stringify(historyArray.reverse())); // Update localStorage
-            renderVideos(); // Re-render list
-        }
-        renderVideos(); // Initial render
+function deleteVideo(index) {
+    historyArray.splice(index, 1);
+    localStorage.setItem("yt_history", JSON.stringify(historyArray.reverse())); // Update localStorage
+    renderVideos(); // Re-render list
+}
+
+const clearAllHistoryBtn = document.querySelector('#clear-all-history');
+clearAllHistoryBtn.addEventListener("click", ()=>{
+    document.querySelector('.clear-history-pop').style.display='block';
+});
+
+const pauseAllHistoryBtn = document.querySelector('#pause-all-history');
+pauseAllHistoryBtn.addEventListener("click", ()=>{
+    document.querySelector('.pause-history-pop').style.display='block';
+});
+
+const cancelAllHistoryBtn = document.querySelector('#cancel-history-btn');
+cancelAllHistoryBtn.addEventListener("click", ()=>{
+    document.querySelector('.clear-history-pop').style.display='none';
+});
+
+const cancelAllPauseBtn = document.querySelector('#cancel-pause-btn');
+cancelAllPauseBtn.addEventListener("click", ()=>{
+    document.querySelector('.pause-history-pop').style.display='none';
+});
+
+
+const clearWatchHistoryBtn = document.querySelector('#clear-history-btn');
+clearWatchHistoryBtn.addEventListener("click", () => {
+    document.querySelector('.clear-history-pop').style.display = 'none';
+    localStorage.removeItem('yt_history');
+    const historyContainer = document.querySelector('.history-container'); 
+    if (historyContainer) {
+        historyContainer.innerHTML = "";
+    }
+    historyContainer.innerHTML = `<p style="text-align:center">This list has no videos.</p>`;
+    // location.reload();
+});
+
+
+renderVideos(); // Initial render
+
     </script>
+    <script src="script.js"></script>
 </body>
 </html>

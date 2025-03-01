@@ -2,6 +2,7 @@
     --main-color:#0F0F0F;
     --gray-color: #222222;
     --font-color:#E7E7E7;
+    --gray-color-hover:#424242;
 }
 
 * {
@@ -58,6 +59,30 @@ header {
     margin-right: 0;
     border: 2px solid var(--gray-color);
     position: relative;
+    transition: all 0.1s ease;
+}
+
+.navSearch:hover{
+    border: none;
+    border: 1px solid rgb(172, 172, 172);
+}
+/* 
+#search-history{
+    position: absolute;
+    background-color: var(--gray-color);
+    border-radius: 10px;
+    width: inherit;
+    padding: 0.5rem 0;
+    margin-top: 4px;
+    display: none;
+} */
+
+#cross-search{
+    position: absolute;
+    right: 15%;
+    bottom: 15%;
+    font-size: 1.5rem;
+    display: none;
 }
 
 #searchBox{
@@ -70,7 +95,32 @@ header {
     padding: 0.25rem 1rem;
     outline: none;
     margin-left: 0;
-    background-color: transparent;
+    background-color: transparent !important;
+    color: white;
+} 
+
+#search-history {
+    position: absolute;
+    background-color: var(--gray-color);
+    border-radius: 10px;
+    width: inherit;
+    padding: 0.5rem 1rem;
+    margin-top: 4px;
+    display: none;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.new-search{
+    display: grid;
+    grid-template-columns: 28px auto 10px;
+    font-size: 1.05rem;
+    padding: 0.5rem 0;
+    width: 100%;
+}
+.new-search:hover{
+    background-color: var(--gray-color-hover);
+    cursor: pointer;
 }
 
 #search-button{
@@ -202,35 +252,26 @@ main {
     gap: 2rem;
     padding: 0rem 1rem;
 }
-
-.music-type{
+ul{
     width: 100%;
     margin: 0.85rem 0 0.25rem 0;
     height: 3.5rem;
     background-color: var(--main-color);
-    position: sticky;
+    /* position: sticky; */
     top: 3.5rem;
-
-
-    ul{
-        list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    list-style: none;
 
         li{
             padding: 0.5rem 1rem;
             background-color: var(--gray-color);
             border-radius: 10px;
             font-size: 0.9rem;
+            text-decoration: none;
         }
-    }
 }
-
-.music-lists{
-    width: 100%;
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 0.8rem;
-}
-
 .card {
     color: white;
     display: flex;

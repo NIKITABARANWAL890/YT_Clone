@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube Video & Comments</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css" integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="video.css">
 </head>
@@ -16,10 +17,13 @@
             <img src="images/logo.png" alt="Youtube Logo" id="yt_logo">
         </div>
         <div class="nav-search-bar">
-        <div class="navSearch">
-        <input type="text" name="search-text" oninput="handleSearch(event)" id="searchBox" placeholder="Search">
-        <button onclick="handleSearchButton()" id="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
+            <div class="navSearch">
+                <input type="text" name="search-text" id="searchBox" placeholder="Search" autocomplete="off">
+                <div id="cross-search"><i class="fa-solid fa-xmark"></i></div>
+                <button id="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <div id="search-history">
+                </div>
+                </div>
         <div class="search-mic">
         <i class="fa-solid fa-microphone"></i>
         </div>
@@ -38,104 +42,269 @@
 
     <div class="video-container">
         <!-- <a href='index.html'>HOME</a> -->
-    <div id="currVideo"></div>
-    <div class="video-side-content">
-        
+     <div id="currVideo">
+      <!--  <div class="currVideo-content">
+        <iframe src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <h2>Header</h2>
+        <div class="video-actions">
+            <div class="logo-and-content">
+                <div id="video-logo"></div>
+                <h2 id="video-author">Author</h2>
+                <button id="subscribe-btn">Subscribe</button>
+            </div>
+            <div class="video-action-btns">
+                <div class="likeDislike"><i class="ri-thumb-up-line"></i><div id="like-count">1</div>
+                <i class="ri-thumb-down-line"></i>
+                </div>
+                <button id="share-button"><i class="ri-share-forward-line"></i>Share</button>
+                <button id="download-button"><i class="ri-download-line"></i>Download</button>
+                <button id="more-button"><i class="ri-more-line"></i></button>
+            </div>
+        </div>
+        </div>
+        <div class="currVideo-details">
+
+        </div>
+        <div class="comments-input">
+            <div class="comment-input">
+            <div class="user-profile">
+                N
+            </div>
+            <div class="comment-actions">
+            <input type="text" id="comment-box" placeholder="Write a comment..." autocomplete="off">
+            <div class="comment-buttons">
+                <button id="cancel-btn">Cancel</button>
+                <button id="comment-btn">Comment</button>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="comments-container"></div>  -->
     </div>
+   
+    <div class="video-side-content">
+        <!-- <div class="yt-side-card">
+        <iframe 
+                src="https://www.youtube.com/embed/W7FTkUFU7nw" 
+                title="Pokémon Presents | 2.27.2025" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+            <div class="yt-side-cards-content">
+                <div class="yt-side-cards-header">
+                    <h3>Pokémon Presents | 2.27.2025</h3>
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </div>
+                <p>The Official Pokémon YouTube channel</p>
+                <p>Trending Video</p>
+            </div>
+    </div> -->
+</div>
     </div>
 
     <script>
-        const videoContainer = document.querySelector('#currVideo');
-        const commentArr = [];
-        const searchText = window.location.search;
-        const videoId = searchText.split('=')[1];
+const videoContainer = document.querySelector("#currVideo");
+const searchText = window.location.search;
+console.log(searchText);
+const videoId = searchText.split("=")[1];
 
-        const showVideo = () => {
-            const newVideo = document.createElement('div');
-            newVideo.classList.add('newVideo');
-            newVideo.innerHTML = `
-                <iframe src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+const commentArr = JSON.parse(localStorage.getItem(`comments_${videoId}`)) || [];
 
-                <div class="comments-input">
-                    <input type="text" id="comment-box" placeholder="Write a comment...">
-                    <div class="comment-buttons">
-                        <button id="cancel-btn">Cancel</button>
-                        <button id="comment-btn">Comment</button>
-                    </div>
+const showVideo = () => {
+    const newVideo = document.createElement("div");
+    newVideo.classList.add("newVideo");
+    newVideo.innerHTML = `
+        <div class="currVideo-content">
+        <iframe src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <h2>Header</h2>
+        <div class="video-actions">
+            <div class="logo-and-content">
+                <div id="video-logo"></div>
+                <h2 id="video-author">Author</h2>
+                <button id="subscribe-btn">Subscribe</button>
+            </div>
+            <div class="video-action-btns">
+                <div class="likeDislike"><i class="ri-thumb-up-line"></i><div id="like-count">1</div>
+                <i class="ri-thumb-down-line"></i>
                 </div>
+                <button id="share-button"><i class="ri-share-forward-line"></i>Share</button>
+                <button id="download-button"><i class="ri-download-line"></i>Download</button>
+                <button id="more-button"><i class="ri-more-line"></i></button>
+            </div>
+        </div>
+        </div>
+        <div class="currVideo-details">
 
-                <div class="comments-container"></div>
-            `;
-            videoContainer.appendChild(newVideo);
+        </div>
+        <div class="comments-input">
+            <div class="comment-input">
+            <div class="user-profile">
+                N
+            </div>
+            <div class="comment-actions">
+            <input type="text" id="comment-box" placeholder="Write a comment..." autocomplete="off">
+            <div class="comment-buttons">
+                <button id="cancel-btn">Cancel</button>
+                <button id="comment-btn">Comment</button>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="comments-container"></div>
+    `;
+    videoContainer.appendChild(newVideo);
 
-            // Select elements after adding them to the DOM
-            const commentButtons = document.querySelector('.comment-buttons');
-            const commentBox = document.querySelector('#comment-box');
-            const commentContainer = document.querySelector('.comments-container');
+    // Select elements after adding them to the DOM
+    const commentButtons = document.querySelector(".comment-buttons");
+    const commentBox = document.querySelector("#comment-box");
+    const commentContainer = document.querySelector(".comments-container");
 
-            // Show comment buttons when input is clicked
-            commentBox.addEventListener("click", () => {
-                commentButtons.style.display = 'block';
-            });
+    // Show stored comments
+    commentArr.forEach(comment => addCommentToUI(commentContainer, comment));
 
-            // Hide buttons when "Cancel" is clicked
-            document.querySelector('#cancel-btn').addEventListener("click", () => {
-                commentButtons.style.display = 'none';
-                commentBox.value = "";
-            });
+    // Show comment buttons when input is clicked
+    commentBox.addEventListener("click", () => {
+        commentButtons.style.visibility = 'visible';
+    });
 
-            // Handle comment submission
-            document.querySelector('#comment-btn').addEventListener("click", () => {
-
-                const inputComment = commentBox.value.trim();
-                if (!inputComment) {
-                    alert("Comment cannot be empty!");
-                    return;
-                }
-
-                commentArr.push(inputComment);
-
-                // Create comment block
-                const commentWrapper = document.createElement('div');
-                commentWrapper.classList.add('single-comment');
-
-                // Add comment text
-                const commentText = document.createElement('p');
-                commentText.textContent = inputComment;
-                commentWrapper.appendChild(commentText);
-
-                // Like/Dislike section
-                const likeDislike = document.createElement('div');
-                likeDislike.classList.add('likeDislike');
-                likeDislike.innerHTML = `
-                    <i class="fa-regular fa-thumbs-up"></i>
-                    <i class="fa-regular fa-thumbs-down"></i>
-                    <p>Reply</p>
-                `;
-                commentWrapper.appendChild(likeDislike);
-
-                // Append to container
-                commentContainer.appendChild(commentWrapper);
-
-                // Clear input
-                commentBox.value = "";
-            });
-        };
-
-        showVideo();
-
-        // Store history in localStorage
-        const youtubeHistory = JSON.parse(localStorage.getItem('yt_history')) || [];
-        if (!youtubeHistory.includes(videoId)) {
-            youtubeHistory.push(videoId);
-            localStorage.setItem("yt_history", JSON.stringify(youtubeHistory));
+    // Hide buttons when clicking outside the input field
+    document.addEventListener("click", (event) => {
+        if (!commentBox.contains(event.target) && !commentButtons.contains(event.target)) {
+            commentButtons.style.visibility = 'hidden';
         }
-        console.log(commentArr);
+    });
 
-        // const comment = JSON.parse(localStorage.getItem('commentArr')) || [];
+    // Hide buttons when "Cancel" is clicked
+    document.querySelector("#cancel-btn").addEventListener("click", () => {
+        commentButtons.style.display = "none";
+        commentBox.value = "";
+    });
+
+    // Handle comment submission
+    document.querySelector("#comment-btn").addEventListener("click", () => {
+        const inputComment = commentBox.value.trim();
+        if (!inputComment) {
+            alert("Comment cannot be empty!");
+            return;
+        }
+
+        commentArr.push(inputComment);
+        localStorage.setItem(`comments_${videoId}`, JSON.stringify(commentArr));
+
+        addCommentToUI(commentContainer, inputComment);
+        commentBox.value = "";
+    });
+};
+
+// Helper function to add comments to UI
+const addCommentToUI = (container, commentText) => {
+    const commentWrapper = document.createElement("div");
+    commentWrapper.classList.add("single-comment");
+
+    const commentElement = document.createElement("p");
+    commentElement.classList.add('user-comment')
+    commentElement.textContent = commentText;
+    commentWrapper.appendChild(commentElement);
+
+    // Like/Dislike section
+    const likeDislike = document.createElement("div");
+    likeDislike.classList.add("likeDislikeComments");
+    likeDislike.innerHTML = `
+        <i class="fa-regular fa-thumbs-up"></i>
+        <i class="fa-regular fa-thumbs-down"></i>
+        <p>Reply</p>
+    `;
+    commentWrapper.appendChild(likeDislike);
+
+    container.appendChild(commentWrapper);
+};
+
+showVideo();
+
+// Store video history in localStorage
+const youtubeHistory = JSON.parse(localStorage.getItem("yt_history")) || [];
+
+// Check if the video is already in history
+const exists = youtubeHistory.some(video => video.videoId === videoId);
+
+if (videoId && !exists) {
+    // youtubeHistory.push({ videoId, title, author });
+    youtubeHistory.push(videoId);
+    // console.log(youtubeHistory);
+    localStorage.setItem("yt_history", JSON.stringify(youtubeHistory));
+}
+
+const sideRoot = document.querySelector('.video-side-content');
+
+const getYTData = () => {
+    fetch("https://youtube138.p.rapidapi.com/v2/trending", {
+        method: "GET",
+        headers: {
+            "x-rapidapi-host": "youtube138.p.rapidapi.com",
+            "x-rapidapi-key": "4334cf89c2msh8bb2842ca1bc925p14d540jsn5476cbded4a8",
+        },
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data.list); // Check the structure of the API response
+        showSideVideo(data.list); // Pass fetched data to showSideVideo
+    })
+    .catch((err) => {
+        console.log(err.message);
+    });
+};
+
+const showSideVideo = (list) => {
+    sideRoot.innerHTML = ""; // Clear previous content
+    list.forEach((video, index) => {
+        // Extract video details
+        const videoId = video.videoId; 
+        console.log(videoId);
+        const title = video.title;
+        console.log(title);
+        const author = video.author;
+        console.log(author);
+        const thumbnail = video.thumbnails[0].url;
+        console.log(thumbnail);
+
+        // Create side video card
+        const newSideCard = document.createElement('div');
+        newSideCard.classList.add("yt-side-cards");
+        newSideCard.innerHTML = `
+            <div class="yt-side-card">
+        <iframe 
+                src="https://www.youtube.com/embed/${videoId}" 
+                title=${title} 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+            <div class="yt-side-cards-content">
+                <div class="yt-side-cards-header">
+                    <h3>${title}</h3>
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </div>
+                <p>${author}</p>
+            </div>
+    </div>
+        `;
+        sideRoot.appendChild(newSideCard);
+    });
+};
+
+// Call the function to fetch and display trending videos
+getYTData();
+
+
 
     </script>
+    <script src="script.js"></script>
 </body>
 </html>

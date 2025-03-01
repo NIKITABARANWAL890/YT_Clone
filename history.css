@@ -2,6 +2,7 @@
     --main-color:#0F0F0F;
     --gray-color: #222222;
     --font-color:#E7E7E7;
+    --blue-color:#3EA5FE;
 }
 
 *{
@@ -13,6 +14,10 @@
 body{
     color: var(--font-color);
     /* overflow: hidden; */
+}
+
+button, i, img{
+    cursor: pointer;
 }
 
 .main-content{
@@ -29,7 +34,7 @@ body{
 .history-container {
     width: 100%;
     display: flex;
-    gap: 2rem;
+    justify-content: space-between;
     height: 100vh; /* Ensure it takes full height */
     overflow: hidden; /* Prevent unnecessary scrolling */
 }
@@ -39,6 +44,8 @@ body{
     overflow-y: auto; /* Allows scrolling inside if content overflows */
     padding: 1rem;
     width: 60%;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
 
     h2{
         margin-bottom: 2rem 0;
@@ -131,8 +138,84 @@ body{
     }
 
     .manage-history{
+        margin-left: 0;
+    }
+}
+
+.clear-all-history{
+    margin: 1rem;
+    align-self: flex-start;
+}
+
+.clear-history-pop{
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    width: 40rem;
+    padding: 1rem;
+    background-color: var(--gray-color);
+    border-radius: 10px;
+    display: none;
+
+    p{
+        margin: 0;
+        font-size: 1.05rem;
         margin: 1rem;
-        align-self: flex-start;
+        color: rgb(169, 169, 169);
+    }
+
+    p:first-child{
+        font-weight: 700;
+        color: var(--font-color);
+    }
+
+    button{
+        padding: 0.6rem 1rem;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: white;
+        font-size: 1rem;
+        margin-top: 2rem;
+    }
+    #clear-history-btn{
+        color: var(--blue-color);
+    }
+}
+
+.pause-history-pop{
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    width: 40rem;
+    padding: 1rem;
+    background-color: var(--gray-color);
+    border-radius: 10px;
+    display: none;
+
+    p{
+        margin: 0;
+        font-size: 1.05rem;
+        margin: 1rem;
+        color: rgb(169, 169, 169);
+    }
+
+    p:first-child{
+        font-weight: 700;
+        color: var(--font-color);
+    }
+
+    button{
+        padding: 0.6rem 1rem;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: white;
+        font-size: 1rem;
+        margin-top: 2rem;
+    }
+    #clear-history-btn{
+        color: var(--blue-color);
     }
 }
 
