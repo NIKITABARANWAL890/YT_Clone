@@ -83,7 +83,6 @@
         </div>
         <div class="comments-container"></div>  -->
     </div>
-   
     <div class="video-side-content">
         <!-- <div class="yt-side-card">
         <iframe 
@@ -108,9 +107,18 @@
 
     <script>
 const videoContainer = document.querySelector("#currVideo");
-const searchText = window.location.search;
+let searchText = window.location.search;
 console.log(searchText);
-const videoId = searchText.split("=")[1];
+searchText=searchText.replace('?','');
+searchText=searchText.split('&');
+const videoId = searchText[0].split("=")[1];
+const title = decodeURIComponent(searchText[1].split("=")[1]);
+console.log(title);
+const author = decodeURIComponent(searchText[2].split("=")[1]);
+console.log(author);
+console.log({videoId, title, author});
+
+// Remove ? by substr or replace method, split the string on the basis of &, split the substrs on the baiss of =.
 
 const commentArr = JSON.parse(localStorage.getItem(`comments_${videoId}`)) || [];
 
@@ -122,11 +130,11 @@ const showVideo = () => {
         <iframe src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <h2>Header</h2>
+        <h3>${title}</h3>
         <div class="video-actions">
             <div class="logo-and-content">
                 <div id="video-logo"></div>
-                <h2 id="video-author">Author</h2>
+                <h2 id="video-author">${author}</h2>
                 <button id="subscribe-btn">Subscribe</button>
             </div>
             <div class="video-action-btns">
@@ -227,84 +235,200 @@ const addCommentToUI = (container, commentText) => {
 
 showVideo();
 
-// Store video history in localStorage
+// Retrieve the YouTube history from localStorage
 const youtubeHistory = JSON.parse(localStorage.getItem("yt_history")) || [];
+console.log("Current History:", youtubeHistory);
 
-// Check if the video is already in history
-const exists = youtubeHistory.some(video => video.videoId === videoId);
+// Ensure videoId exists before proceeding
+if (videoId) {
+    // Check if the video is already in history
+    const exists = youtubeHistory.some(video => video.videoId === videoId);
 
-if (videoId && !exists) {
-    // youtubeHistory.push({ videoId, title, author });
-    youtubeHistory.push(videoId);
-    // console.log(youtubeHistory);
-    localStorage.setItem("yt_history", JSON.stringify(youtubeHistory));
+    if (!exists) {
+        youtubeHistory.push({ videoId, title, author });
+        console.log("Updated History:", youtubeHistory);
+        if (youtubeHistory.length > 10) {
+        youtubeHistory.shift(); // Remove the oldest entry
+    }
+        localStorage.setItem("yt_history", JSON.stringify(youtubeHistory));
+}
 }
 
-const sideRoot = document.querySelector('.video-side-content');
 
+const sideRoot = document.querySelector('.video-side-content');
+let list=[];
 const getYTData = () => {
     fetch("https://youtube138.p.rapidapi.com/v2/trending", {
         method: "GET",
         headers: {
             "x-rapidapi-host": "youtube138.p.rapidapi.com",
-            "x-rapidapi-key": "4334cf89c2msh8bb2842ca1bc925p14d540jsn5476cbded4a8",
+            "x-rapidapi-key": "55488db6c3msh794b82f94cd1484p1182c2jsn8bbb8070e1cf",
         },
     })
     .then((res) => res.json())
     .then((data) => {
-        console.log(data.list); // Check the structure of the API response
+        list = data.list;
         showSideVideo(data.list); // Pass fetched data to showSideVideo
     })
     .catch((err) => {
-        console.log(err.message);
+        console.log(err);
     });
 };
 
 const showSideVideo = (list) => {
     sideRoot.innerHTML = ""; // Clear previous content
     list.forEach((video, index) => {
+        // console.log(video, "video logged");
         // Extract video details
+        const thumbnail = video.authorThumbnails[5].url;
+        // console.log(thumbnail);
         const videoId = video.videoId; 
-        console.log(videoId);
+        // console.log(videoId);
         const title = video.title;
-        console.log(title);
-        const author = video.author;
-        console.log(author);
-        const thumbnail = video.thumbnails[0].url;
-        console.log(thumbnail);
-
-        // Create side video card
+        // console.log(title);
         const newSideCard = document.createElement('div');
         newSideCard.classList.add("yt-side-cards");
         newSideCard.innerHTML = `
-            <div class="yt-side-card">
-        <iframe 
-                src="https://www.youtube.com/embed/${videoId}" 
-                title=${title} 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin" 
-                allowfullscreen>
-            </iframe>
-            <div class="yt-side-cards-content">
-                <div class="yt-side-cards-header">
-                    <h3>${title}</h3>
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                </div>
-                <p>${author}</p>
-            </div>
+    <div class="yt-side-card" onclick="playVideo(this, '${video.id}')">
+<div class="imgVideo">
+    <!-- Thumbnail (Initially Visible) -->
+    <img class="thumbnail" src="${thumbnail}" alt="Video Thumbnail">
+    
+    <!-- Video Frame (Initially Hidden) -->
+    <iframe 
+        class="video-frame" 
+        style="display: none;" 
+        title="${video.title}" 
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+    </iframe>
     </div>
-        `;
+    <!-- Video Info -->
+    <div class="yt-side-cards-content">
+        <div class="yt-side-cards-header">
+            <h3>${video.title}</h3>
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+        </div>
+        <p>${video.author}</p>
+    </div>
+</div>
+`;
         sideRoot.appendChild(newSideCard);
     });
 };
 
+function playVideo(card, videoId) {
+    const thumbnail = card.querySelector(".thumbnail");
+    const iframe = card.querySelector(".video-frame");
+
+    // Hide thumbnail and show iframe with video
+    thumbnail.style.display = "none";
+    iframe.style.display = "block";
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+}
+
 // Call the function to fetch and display trending videos
 getYTData();
 
+document.addEventListener("DOMContentLoaded", function () {
+    const searchBox = document.querySelector("#searchBox");
+    const searchHistoryDiv = document.querySelector("#search-history");
+    const searchButton = document.querySelector("#search-button");
+    const clearSearch = document.querySelector("#cross-search");
+    let searchData = [];
+
+    // Function to show search history
+    function showSearchHistory() {
+        searchHistoryDiv.innerHTML = ""; // Clear previous content
+        clearSearch.style.display='block';
+        if (searchData.length === 0) {
+            searchHistoryDiv.innerHTML = "<p>No recent searches</p>";
+        } else {
+            searchData.forEach((searchText, index) => {
+                const newSearch = document.createElement("div");
+                newSearch.classList.add("new-search");
+                newSearch.innerHTML = `
+                    <i class="ri-history-line"></i>
+                    <p>${searchText}</p>
+                    <i class="fa-solid fa-xmark" onclick="removeSearch(${index})"></i>
+                `;
+                searchHistoryDiv.appendChild(newSearch);
+            });
+        }
+        searchHistoryDiv.style.display = "block"; // Show search history
+    }
+
+    // Function to remove search from history
+    window.removeSearch = function (index) {
+        searchData.splice(index, 1);
+        showSearchHistory(); // Refresh the UI
+    };
+
+    // Function to filter and display search results
+    function filterAndDisplay(query) {
+        const filteredData = list.filter(video =>
+            video.title.toLowerCase().trim().includes(query) ||
+            video.author.toLowerCase().trim().includes(query)
+        );
+        console.log(filteredData); // For debugging
+        showSideVideo(filteredData);
+    }
+
+    // Function to handle search button click
+    function handleSearchButton() {
+        const query = searchBox.value.trim().toLowerCase();
+        if (query !== "") {
+            if (!searchData.includes(query)) {
+                searchData.push(query);
+            }
+            filterAndDisplay(query); // Call the filtering function
+        }
+        searchData.reverse();
+        showSearchHistory();
+    }
+
+    // Attach event listeners
+    searchBox.addEventListener("focus", showSearchHistory);
+    searchBox.addEventListener("blur", function () {
+        setTimeout(() => {
+            searchHistoryDiv.style.display = "none";
+            clearSearch.style.display='none';
+        }, 200); 
+    });
+
+    searchButton.addEventListener("click", handleSearchButton);
+
+    clearSearch.addEventListener("click", () => {
+        console.log("clear search");
+        searchBox.value = "";  // Clears input
+        searchBox.focus();  // Keeps focus on search input
+        // document.querySelector("#search-history").style.display = "none"; // Hide search history
+    });
+});
 
 
     </script>
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
 </body>
 </html>
+
+
+ <!-- <div class="yt-side-card">
+    <iframe 
+            src="https://www.youtube.com/embed/${video}" 
+            title=${video} 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+        </iframe>
+        <div class="yt-side-cards-content">
+            <div class="yt-side-cards-header">
+                <h3>${video.title}</h3>
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </div>
+            <p>${video.author}</p>
+        </div>
+</div> -->

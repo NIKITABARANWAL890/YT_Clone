@@ -71,6 +71,10 @@ button, i, img{
     }
 }
 
+#history-cards-header-title{
+    font-size: 1.1rem;
+}
+
 
 .history-cards{
     width: 100%;
@@ -101,7 +105,7 @@ button, i, img{
 .history-cards-header{
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: space-evenly;
 
     button{
@@ -114,6 +118,10 @@ button, i, img{
 
     i{
         padding: 0.5rem;
+    }
+
+    p{
+        width: 80%;
     }
 }
 

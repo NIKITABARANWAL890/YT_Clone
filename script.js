@@ -5877,7 +5877,7 @@ const showUI = (list) => {
         const newCard = document.createElement("div");
         newCard.addEventListener("click", () => {
             // window.open();
-            window.open(`./video.html?id=${obj.videoId}`, "_top");
+            window.open(`./video.html?id=${obj.videoId}&title=${obj.title}&author=${obj.author}`, "_top");
             // history.push(obj.videoId);
             // console.log(history);
         });
@@ -5907,10 +5907,13 @@ window.onload = () => {
     showUI(dummyData);
 };
 
+
+
 const handleHover = (e, idx) => {
     // const lastImage = dummyData[idx].videoThumbnails.pop();
     // e.target.src = lastImage.url;
 };
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const searchBox = document.querySelector("#searchBox");
@@ -5985,6 +5988,17 @@ document.addEventListener("DOMContentLoaded", function () {
         searchBox.value = "";  // Clears input
         searchBox.focus();  // Keeps focus on search input
         // document.querySelector("#search-history").style.display = "none"; // Hide search history
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    let links = document.querySelectorAll(".nav-link");
+    let currentPage = window.location.pathname.split("/").pop(); // Get current page filename
+
+    links.forEach(link => {
+        if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active"); // Add active class
+        }
     });
 });
 

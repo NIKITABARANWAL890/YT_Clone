@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css" integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="history.css">
 </head>
@@ -35,50 +36,85 @@
             <div class="user-profile">
                 N
             </div>
+            <ul class="user-sidebar">
+                <li class="first-div">
+                    <div class="user-details">
+                    <div class="user-profile">
+                        N
+                    </div>
+                    <p style="font-size: 1.25rem;">Nikita Baranwal</p>
+                    </div>
+                    <a href="" style="align-self: center;">View your channel</a>
+                </li>
+        
+                <li class="second-div">
+                    <a href="#"><i class="ri-google-fill"></i>Google Account</a>
+                    <a href="#"><i class="ri-account-box-line"></i>Switch Account</a>
+                    <a href="#"><i class="ri-login-box-line"></i>Log out</a>
+                </li>
+        
+                <li class="third-div">
+                    <a href="#"><i class="ri-youtube-line"></i>YouTube Studio</a>
+                    <a href="#"><i class="ri-money-dollar-circle-line"></i>Purchase and Membership</a>
+                </li>
+                <li class="four-div">
+                    <a href="#"><i class="ri-shield-user-line"></i>Your data in YouTube</a>
+                    <a href="#"><i class="ri-moon-line"></i>Appearance: Device theme</a>
+                    <a href="#"><i class="ri-global-line"></i>Language: British English</a>
+                    <a href="#"><i class="ri-global-line"></i>Location: India</a>
+                </li>
+                <li class="five-div">
+                    <a href="#"><i class="ri-settings-4-line"></i>Settings</a>
+                    <a href="#"><i class="ri-question-line"></i>Help</a>
+                    <a href="#"><i class="ri-feedback-line"></i>Feedback</a>
+                </li>
+            </ul>
         </div>
     </header>
 
     <aside style="padding:1rem;">
-        <div class="first-div">
-            <div class="home"><a href="index.html"><i class="fa-solid fa-house"></i>Home</a></div>
-            <div class="shorts"><img src="images/shorts.png" alt="">Shorts</div>
-            <div class="subscription"><img src="images/subscription.png" alt="">Subscription</div>
-        </div>
-        <div class="second-div">
-            <div class="you">You <i class="fa-solid fa-angle-right"></i></div>
-            <div class="history"><img src="images/history.png" alt=""><a href="history.html">
-                History
-            </a></div>
-            <div class="playlists"><img src="images/playlists.png" alt="">Playlists</div>
-            <div class="yourVideos"><img src="images/yourVideos.png" alt="">Your Videos</div>
-            <div class="watchLater"><img src="images/watchLater.png" alt="">Watch Later</div>
-            <div class="likedVideos"><img src="images/liked.png" alt="">Liked Videos</div>
-            <div class="downloads"><img src="images/download.png" alt="">Downloads</div>
-        </div>
-        <div class="third-div">
-            <h4>Subscription</h4>
-        </div>
-        <div class="four-div">
-            <h4>Explore</h4>
-            <div class="trending"><img src="images/trending.png" alt="">Trending</div>
-            <div class="shopping"><img src="images/shopping.png" alt="">Shopping</div>
-            <div class="music"><img src="images/music.png" alt="">Music</div>
-            <div class="films"><img src="images/films.png" alt="">Films</div>
-            <div class="live"><img src="images/live.png" alt="">Live</div>
-            <div class="gaming"><img src="images/gaming.png" alt="">Gaming</div>
-            <div class="news"><img src="images/news.png" alt="">News</div>
-            <div class="sport"><img src="images/sports.png" alt="">Sport</div>
-            <div class="courses"><img src="images/courses.png" alt="">Courses</div>
-            <div class="fashion"><img src="images/fashion.png" alt="">Fashion</div>
-            <div class="podcasts"><img src="images/podcasts.png" alt="">Podcasts</div>
-        </div>
-        <div class="five-div">
-            <h4>More from Youtube</h4>
-            <div class="youtube-premium"><img src="images/ytPremium.png" alt="">YouTube Premium</div>
-            <div class="youtube-studio"><img src="images/ytStudio.png" alt="">YouTube Studio</div>
-            <div class="youtube-music"><img src="images/music.png" alt="">YouTube Music</div>
-            <div class="youtube-kids"><img src="images/ytKids.png" alt="">YouTube Kinds</div>
-        </div>
+        <ul class="first-div">
+            <li><a href="index.html" class="nav-link home"><i class="fa-solid fa-house"></i>Home</a></li>
+            <li><a href="#" class="nav-link shorts"><img src="images/shorts.png" alt="">Shorts</a></li>
+            <li><a href="#" class="nav-link subscription"><i class="ri-tv-2-line"></i>Subscription</a></li>
+        </ul>
+    
+        <ul class="second-div">
+            <li><a href="#" class="nav-link you">You <i class="fa-solid fa-angle-right"></i></a></li>
+            <li><a href="history.html" class="nav-link history"><i class="ri-history-line"></i>History</a></li>
+            <li><a href="#" class="nav-link playlists"><i class="ri-play-list-line"></i>Playlists</a></li>
+            <li><a href="#" class="nav-link yourVideos"><i class="ri-movie-line"></i>Your Videos</a></li>
+            <li><a href="#" class="nav-link watchLater"><i class="ri-time-line"></i>Watch Later</a></li>
+            <li><a href="#" class="nav-link likedVideos"><i class="ri-thumb-up-line"></i>Liked Videos</a></li>
+            <li><a href="#" class="nav-link downloads"><i class="ri-download-line"></i>Downloads</a></li>
+        </ul>
+    
+        <ul class="third-div">
+            <li><h4>Subscription</h4></li>
+        </ul>
+    
+        <ul class="four-div">
+            <li><h4>Explore</h4></li>
+            <li><a href="#"><i class="ri-fire-line"></i>Trending</a></li>
+            <li><a href="#"><i class="ri-shopping-bag-4-line"></i>Shopping</a></li>
+            <li><a href="#"><i class="ri-music-ai-line"></i>Music</a></li>
+            <li><a href="#"><i class="ri-film-line"></i>Films</a></li>
+            <li><a href="#"><i class="ri-rfid-line"></i>Live</a></li>
+            <li><a href="#"><i class="ri-discord-line"></i>Gaming</a></li>
+            <li><a href="#"><i class="ri-news-line"></i>News</a></li>
+            <li><a href="#"><i class="fa-solid fa-trophy"></i>Sport</a></li>
+            <li><a href="#"><i class="ri-graduation-cap-line"></i>Courses</a></li>
+            <li><a href="#"><i class="ri-handbag-line"></i>Fashion</a></li>
+            <li><a href="#"><i class="ri-router-line"></i>Podcasts</a></li>
+        </ul>
+    
+        <ul class="five-div">
+            <li><h4>More from YouTube</h4></li>
+            <li><a href="#"><img src="images/ytPremium.png" alt="">YouTube Premium</a></li>
+            <li><a href="#"><img src="images/ytStudio.png" alt="">YouTube Studio</a></li>
+            <li><a href="#"><img src="images/music.png" alt="">YouTube Music</a></li>
+            <li><a href="#"><img src="images/ytKids.png" alt="">YouTube Kids</a></li>
+        </ul>
     </aside>
 
     <div class="main-content">
@@ -119,7 +155,7 @@
                             Remember, pausing this setting doesn't delete any previous activity but you can view, edit and delete your private <a href="">YouTube Watch History</a> data at any time. When you pause and clear your watch history, YouTube features that rely on history to personalise your experience are disabled.</p>
                         <div class="clear-history-btns">
                             <button id="cancel-pause-btn">Cancel</button>
-                            <button id="clear-pause-btn">Clear Watch History</button>
+                            <button id="clear-pause-btn">Pause Watch History</button>
                         </div>
                     </div></p>
                 <p class="manage-history" id="manage-all-history"><i class="fa-solid fa-gear"></i>Manage all history</p>
@@ -141,15 +177,15 @@ const root1 = document.getElementById('iframe-container');
 function renderVideos() {
     root1.innerHTML = ""; // Clear existing content
 
-    historyArray.forEach((videoId, index) => {
-        console.log(videoId);
+    historyArray.forEach((video, index) => {
+        console.log(video);
         const newCard = document.createElement('div');
         newCard.innerHTML = `
             <div class="history-cards">
                 <iframe 
                     width="448" 
                     height="252" 
-                    src="https://www.youtube.com/embed/${videoId}" 
+                    src="https://www.youtube.com/embed/${video.videoId}" 
                     title="YouTube video player" 
                     frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -158,14 +194,13 @@ function renderVideos() {
                 </iframe>
                 <div class="history-cards-content">
                     <div class="history-cards-header">
-                        <h3>undefined</h3>
+                        <p id="history-cards-header-title">${video.title}</p>
                         <button onclick="deleteVideo(${index})" id='delete-btn'>
                             <i class="fa-solid fa-xmark"></i>
                         </button>
                         <i class="fa-solid fa-ellipsis-vertical"></i>
                     </div>
-                    <p>undefined</p>
-                    <p>Inner data</p>
+                    <p>${video.author}</p>
                 </div>
             </div>
         `;

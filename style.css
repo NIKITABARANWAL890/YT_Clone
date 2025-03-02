@@ -20,8 +20,15 @@ body {
     color: var(--font-color);
 }
 
-i{
+i, img, a, button, li{
     cursor: pointer;
+}
+
+.active {
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: var(--gray-color-hover);
+    color: white; /* Highlight color */
 }
 
 /************************* Nav *********************/
@@ -169,6 +176,27 @@ header {
     gap: 1.5rem;
     padding: 0 1rem;
     /* width: 20%; */
+    position: relative;
+}
+
+.user-sidebar{
+    position: absolute;
+    width: 20rem;
+    /* display: block; */
+    right: 0;
+    top: 0;
+    height: 100vh;
+    border-radius: 10px;
+    background-color: var(--gray-color);
+    display: none;
+
+    .user-details{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        /* justify-content: start; */
+    }
 }
 
 .nav-create{
@@ -193,6 +221,7 @@ header {
     border-radius: 50%;
     background-color: purple;
     margin-left: 1rem;
+    cursor: pointer;
 }
 
 
@@ -207,10 +236,16 @@ aside {
     padding: 1rem;
 }
 
+ul{
+    list-style: none;
+    text-decoration: none;
+}
+
+
 .first-div, .second-div, .third-div, .four-div, .five-div{
     width: 100%;
-    padding: 1rem 0.7rem;
-    border-bottom: 2px solid var(--gray-color);
+    padding: 0.7rem 0.7rem;
+    border-bottom: 1px solid var(--gray-color-hover);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -223,16 +258,49 @@ aside {
     h4{
         margin: 0.5rem 0;
     }
+
+    i{
+        font-size: 1.2rem;
+    }
+
+    li{
+        display: flex;
+        align-items: center;
+        /* height: 1.6rem; */
+        justify-content: space-between;
+    }
+
+    a{
+        text-decoration: none;
+        color: var(--font-color);
+        display: flex;
+        gap: 1rem;
+        justify-content: start;
+        width: 100%;
+        height: 100%;
+        padding: 0.6rem;
+    }
+
+    a:hover{
+        border-radius: 10px;
+        background-color: var(--gray-color-hover);
+        color: white; /* Highlight color */
+    }
 }
 
-.first-div>div, .second-div>div, .four-div>div, .third-div>div, .five-div>div{
-    gap: 1rem;
-    margin: 0.5rem 0;
+.first-div>a{
+        text-align: center;
+}
+
+.five-div{
+    font-size: 1rem;
+}
+
+/* .first-div>a, .second-div>a, .four-div>a, .third-div>a, .five-div>a{
+    
     display: flex;
     align-items: center;
-}
-
-
+} */
 
 
 
@@ -240,6 +308,7 @@ aside {
 
 
 /***************** Main *******************/
+
 
 main {
     /* background-color: blueviolet; */
@@ -252,26 +321,34 @@ main {
     gap: 2rem;
     padding: 0rem 1rem;
 }
-ul{
+
+
+.music-lists{
     width: 100%;
     margin: 0.85rem 0 0.25rem 0;
     height: 3.5rem;
     background-color: var(--main-color);
-    /* position: sticky; */
     top: 3.5rem;
     display: flex;
     align-items: center;
     gap: 0.8rem;
     list-style: none;
 
-        li{
+        a{
+            text-decoration: none;
             padding: 0.5rem 1rem;
+            color: var(--font-color);
             background-color: var(--gray-color);
             border-radius: 10px;
             font-size: 0.9rem;
-            text-decoration: none;
+        }
+
+        a:hover{
+            background-color: rgb(124, 124, 124); 
+            color: black;
         }
 }
+
 .card {
     color: white;
     display: flex;
